@@ -4,7 +4,7 @@
 module reaction_diffusion_mod
   implicit none
   private
-  public :: initialize_fields, solve_rd, solve_rd_fullTime, write_fields
+  public :: initialize_fields, solve_rd_finite_diff, solve_rd_fullTime, write_fields
   public :: check_conditions
 
 contains
@@ -199,7 +199,9 @@ contains
   end subroutine solve_rd_fullTime
 
 
-  subroutine solve_rd(u, v, Nx, Ny, Lx, Ly, a, b, c, d, r, growth_dist, dt, gamm, it, model_flag)
+  subroutine solve_rd_finite_diff(u, v, Nx, Ny, Lx, Ly, a, b, c, d, r, &
+      growth_dist, dt, gamm, it, model_flag)
+     
       implicit none
       integer, intent(in) :: Nx, Ny, it, model_flag
       real(8), intent(in) :: Lx, Ly, a, b, c, d, r, dt, gamm
@@ -221,8 +223,10 @@ contains
           im = mod(ix - 2 + Nx, Nx) + 1
           ip = mod(ix     + Nx, Nx) + 1
     
-          u_lap(iy,ix) = (u(iy,im) + u(iy,ip) + u(jm,ix) + u(jp,ix) - 4.d0*u(iy,ix)) / dx**2
-          v_lap(iy,ix) = (v(iy,im) + v(iy,ip) + v(jm,ix) + v(jp,ix) - 4.d0*v(iy,ix)) / dx**2
+          u_lap(iy,ix) = (u(iy,im) + u(iy,ip) + u(jm,ix) + u(jp,ix) & 
+            - 4.d0*u(iy,ix)) / dx**2
+          v_lap(iy,ix) = (v(iy,im) + v(iy,ip) + v(jm,ix) + v(jp,ix) & 
+            - 4.d0*v(iy,ix)) / dx**2
         end do
       end do
     
@@ -266,7 +270,7 @@ contains
 
         end do
       end do
-  end subroutine solve_rd
+  end subroutine solve_rd_finite_diff
 
 
   subroutine write_fields(u, v, Nx, Ny, it)
