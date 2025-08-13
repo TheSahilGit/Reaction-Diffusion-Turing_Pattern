@@ -1,0 +1,1 @@
+rm *.mod *.out *.exe
