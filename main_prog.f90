@@ -38,10 +38,10 @@ program main_sim
 
   call check_conditions(a, b, c, d, dt, Lx, Ly, Nx, Ny, model_flag)
   call initialize_fields(u, v, x, y, Nx, Ny, Lx, Ly, a, b, c, model_flag)
-!  call solve_rd_fullTime(u, v, Nx, Ny, Lx, Ly, Nt, dt, a, b, d, r, gamm0, gamm_rate, plot_every)
 
   do it = 1, Nt
-    call solve_rd(u, v, Nx, Ny, Lx, Ly, a, b, c, d, r, growth_dist, dt, gamm0, it, model_flag)
+    call solve_rd_finite_diff(u, v, Nx, Ny, Lx, Ly, a, b, c, d, r, & 
+      growth_dist, dt, gamm0, it, model_flag)
 
     write(*,'(A,I0,A,I0)', advance='no') achar(13)//'Step: ', it, '/', Nt
 
