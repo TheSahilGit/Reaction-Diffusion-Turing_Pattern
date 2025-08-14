@@ -13,7 +13,7 @@ y = linspace(0, L - dy, Ny);
 % Define time steps to load (adjust file names if needed)
 %steps = [1000, 10000, 220000, 300000, 500000, 700000];
 
-steps = floor(linspace(1,3000000,6));
+steps = floor(linspace(1,1052868,6));
 
 
 % Plot settings
@@ -26,7 +26,7 @@ for k = 1:length(steps)
 
     subplot(floor(length(steps)/3),3,k)
     surf(X, Y, u, 'EdgeColor', 'none');
-    colormap(slanCM("viridis"))
+    colormap(slanCM("parula"))
     title(strcat("t = ", num2str(step*dt)));
     xlabel('x'); ylabel('y'); zlabel('u');
     axis square; view(2); colorbar;

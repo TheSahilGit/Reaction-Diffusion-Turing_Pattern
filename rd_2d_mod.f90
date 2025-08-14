@@ -134,7 +134,8 @@ contains
 
   end subroutine initialize_fields
 
-  subroutine solve_rd_fullTime(u, v, Nx, Ny, Lx, Ly, Nt, dt, a, b, d, r, gamm0, rate, plot_every)
+  subroutine solve_rd_fullTime(u, v, Nx, Ny, Lx, Ly, Nt, dt, &
+      a, b, d, r, gamm0, rate, plot_every)
     implicit none
     integer, intent(in) :: Nx, Ny, Nt, plot_every
     real(8), intent(in) :: Lx, Ly, dt, a, b, d, r, gamm0, rate
